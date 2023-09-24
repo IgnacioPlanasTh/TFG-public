@@ -1,0 +1,138 @@
+<div [@fadeInOut] class="container bg-amarillo my-4">
+  <div class="p-5">
+    <h2 class="text-center">Crear mazo</h2>
+
+    <br />
+    <form
+      [formGroup]="crearMazoForm"
+      (ngSubmit)="onSubmit()"
+      class="col-12 col-md-6 mx-auto row g-2"
+    >
+      <!-- Nombre -->
+      <div class="col-12">
+        <label class="form-label" for="nombre-input">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre-input"
+          formControlName="nombre"
+          placeholder="Nombre"
+        />
+        <div
+          *ngIf="
+            crearMazoForm.controls['nombre'].invalid &&
+            (crearMazoForm.controls['nombre'].dirty ||
+              crearMazoForm.controls['nombre'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="crearMazoForm.controls['nombre'].errors.required">
+            Este campo es obligatorio
+          </div>
+          <div *ngIf="crearMazoForm.controls['nombre'].errors.minlength">
+            Debe ser de 5 caracteres mínimo
+          </div>
+          <div *ngIf="crearMazoForm.controls['nombre'].errors.maxlength">
+            Máximo 30 caracteres
+          </div>
+        </div>
+      </div>
+      <!-- /Nombre -->
+      <div class="col-12">
+        <!-- Descripción -->
+        <label class="form-label" for="descipcion-input">Descripción</label>
+        <textarea
+          class="form-control"
+          id="descipcion-input"
+          formControlName="descripcion"
+          rows="4"
+          placeholder="Descripción"
+        ></textarea>
+        <div
+          *ngIf="
+            crearMazoForm.controls['descripcion'].invalid &&
+            (crearMazoForm.controls['descripcion'].dirty ||
+              crearMazoForm.controls['descripcion'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="crearMazoForm.controls['descripcion'].errors.maxlength">
+            Máximo 100 caracteres
+          </div>
+        </div>
+        <!-- /Descripción -->
+      </div>
+      <div class="col-md-6">
+        <!-- Idioma1 -->
+        <app-select-idiomas
+          [options]="idiomas"
+          formControlName="idioma1"
+          label="Idioma origen"
+        ></app-select-idiomas>
+
+        <div
+          *ngIf="
+            crearMazoForm.controls['idioma1'].invalid &&
+            (crearMazoForm.controls['idioma1'].dirty ||
+              crearMazoForm.controls['idioma1'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="crearMazoForm.controls['idioma1'].errors.equal">
+            Los idiomas no pueden coincidir
+          </div>
+        </div>
+      </div>
+      <!-- /Idioma1 -->
+
+      <!-- Idioma2 -->
+      <div class="col-md-6">
+        <app-select-idiomas
+          [options]="idiomas"
+          formControlName="idioma2"
+          label="Idioma traducción"
+        ></app-select-idiomas>
+
+        <div
+          *ngIf="
+            crearMazoForm.controls['idioma2'].invalid &&
+            (crearMazoForm.controls['idioma2'].dirty ||
+              crearMazoForm.controls['idioma2'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="crearMazoForm.controls['idioma2'].errors.equal">
+            Los idiomas no pueden coincidir
+          </div>
+        </div>
+      </div>
+
+      <!-- /Idioma2 -->
+
+      <div class="col-12">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          formControlName="privado"
+        />
+        Privado
+        <div class="tooltip-container">
+          <span class="badge bg-info">?</span>
+          <span class="tooltip-text"
+            >Los mazos privados no son accesibles para otros usuarios en la
+            búsqueda de mazos</span
+          >
+        </div>
+      </div>
+      <div class="col-auto mx-auto">
+        <button
+          type="submit"
+          class="btn bg-verde"
+          [disabled]="crearMazoForm.invalid"
+        >
+          Crear mazo
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

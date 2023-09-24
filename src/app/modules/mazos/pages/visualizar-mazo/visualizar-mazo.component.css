@@ -1,0 +1,47 @@
+.pildora {
+  border-radius: 30px;
+  padding: 1em;
+}
+
+.pilodra-palabra {
+  border-radius: 50px;
+  padding: 0.5em;
+  text-align: center;
+}
+
+#palabras-overflow-container {
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+#palabras-overflow-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#palabras-overflow-container:hover::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+#palabras-overflow-container::-webkit-scrollbar-thumb {
+  visibility: hidden;
+  background: transparent;
+}
+
+#palabras-overflow-container:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+  background: #888;
+}
+
+#div-avatar {
+  transition: all 300ms;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#div-avatar:hover {
+  /* box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22); */
+  font-size: large;
+  /* border-radius: 5px;
+  border: 2px solid black; */
+}

@@ -1,0 +1,117 @@
+<div [@fadeInOut] class="m-3">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 bg-rojo">
+        <div class="navbar navbar-expand-md">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#biblioteca-menu"
+            aria-controls="biblioteca-menu"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="d-md-none navbar-brand" href="#">Opciones</a>
+          <br />
+          <div class="collapse navbar-collapse" id="biblioteca-menu">
+            <div class="d-flex flex-column w-100">
+              <div class="py-2 biblioteca-menu-item">
+                <button class="btn w-100" (click)="showDefault()">
+                  Mi biblioteca
+                </button>
+              </div>
+              <div class="py-2 biblioteca-menu-item">
+                <button class="btn w-100" (click)="showArchivados()">
+                  Archivados
+                </button>
+              </div>
+              <div class="py-2 biblioteca-menu-item">
+                <button class="btn w-100" [routerLink]="['/mazo/crear']">
+                  Crear mazo
+                </button>
+              </div>
+              <div class="py-2 biblioteca-menu-item">
+                <input
+                  type="file"
+                  #archivoInput
+                  style="display: none"
+                  (change)="importarArchivo($event)"
+                />
+                <button class="btn w-100" (click)="abrirInputArchivo()">
+                  Importar JSON
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-10 bg-amarillo p-2">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <h4>{{ bibliotecaTtitle }}</h4>
+          </div>
+        </div>
+        <div class="row g-2">
+          <app-mazo-card
+            class="col-12 col-md-6 col-lg-4 d-flex"
+            (mazoEliminado)="eliminarMazo($event)"
+            (mazoActualizado)="actualizarGaleria($event)"
+            [showOptions]="true"
+            [showFav]="true"
+            [mazo]="mazo"
+            *ngFor="let mazo of mazosRenderizados"
+          >
+          </app-mazo-card>
+          <div
+            *ngIf="mazosRenderizados.length === 0"
+            class="col-12 text-center h5"
+          >
+            No hay mazos para mostrar
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="overlay" *ngIf="showOverlay" (click)="closeOverlay()">
+  <div
+    class="center-box bg-amarillo"
+    (click)="doNothing(); $event.stopPropagation()"
+  >
+    <div class="row">
+      <div class="col-auto h3 text-center">
+        <span *ngIf="errores && errores.length > 0"> Errores en el JSON: </span>
+        <span *ngIf="importarJSONCorrecto">Mazo creado correctamente</span>
+      </div>
+      <div class="col-auto text-center">
+        <button class="btn btn-outline-danger" (click)="closeOverlay()">
+          X
+        </button>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col">
+        <div id="errores" *ngIf="errores && errores.length > 0">
+          {{ errores }}
+        </div>
+        <div *ngIf="importarJSONCorrecto">
+          <div class="row justify-content-center">
+            <div class="col-auto">
+              <button
+                class="w-100 btn btn-outline-success"
+                (click)="irAMazoImportado()"
+              >
+                Ir al mazo
+              </button>
+              <div id="json"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

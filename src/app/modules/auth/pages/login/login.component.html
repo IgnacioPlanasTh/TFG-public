@@ -1,0 +1,77 @@
+<div [@fadeInOut] class="container bg-amarillo my-4 shadow-lg">
+  <div class="p-5">
+    <h2 class="text-center">Inicio de sesión</h2>
+    <br />
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      class="col-12 col-md-6 mx-auto row g-2"
+    >
+      <div class="col-12">
+        <label for="email-input" class="form-label">Correo</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email-input"
+          formControlName="correo"
+          placeholder="Correo electrónico"
+        />
+
+        <div
+          *ngIf="
+            loginForm.controls['correo'].invalid &&
+            (loginForm.controls['correo'].dirty ||
+              loginForm.controls['correo'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="loginForm.controls['correo'].errors.required">
+            Introduzca un correo
+          </div>
+          <div *ngIf="loginForm.controls['correo'].errors.email">
+            Introduzca un correo válido
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="password-input" class="form-label">Contraseña</label>
+
+        <input
+          type="password"
+          class="form-control"
+          id="password-input"
+          formControlName="contraseña"
+          placeholder="Contraseña"
+        />
+
+        <div
+          *ngIf="
+            loginForm.controls['contraseña'].invalid &&
+            (loginForm.controls['contraseña'].dirty ||
+              loginForm.controls['contraseña'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="loginForm.controls['contraseña'].errors.required">
+            Introduzca una contraseña
+          </div>
+          <div *ngIf="loginForm.controls['contraseña'].errors.minLength">
+            La contraseña debe ser de 5 caracterees mínimo
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="loginForm.errors?.invalidCredentials"
+        class="is-invalid text-danger"
+      >
+        Credenciales incorrectas
+      </div>
+      <div class="col-auto mx-auto">
+        <button type="submit" class="btn bg-verde">Iniciar sesion</button>
+      </div>
+    </form>
+  </div>
+  <div id="google-button"></div>
+</div>

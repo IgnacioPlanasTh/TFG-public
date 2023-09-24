@@ -1,0 +1,31 @@
+<div [@fadeInOut] class="m-1 m-md-3">
+  <div class="container-fluid bg-amarillo shadow-lg">
+    <div class="pt-3">
+      <div class="h2 text-center">Seleccionar modo de juego</div>
+    </div>
+    <div class="figure-container">
+      <div class="figure-wrapper">
+        <figure [routerLink]="['flashcards']" class="shadow">
+          <img
+            src="../../../../../assets/images/select_gamemode_flashcards.jpg"
+            alt="Modo de juego FlashCards"
+            width="250"
+            height="300"
+          />
+          <figcaption>FlashCards</figcaption>
+        </figure>
+      </div>
+      <div class="figure-wrapper">
+        <figure style="--c: #0009" [routerLink]="['parejas']" class="shadow">
+          <img
+            src="../../../../../assets/images/select_gamemode_parejas.jpg"
+            alt="Modo de juego parejas"
+            width="250"
+            height="300"
+          />
+          <figcaption>Parejas</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</div>

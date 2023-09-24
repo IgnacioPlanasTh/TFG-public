@@ -1,0 +1,90 @@
+<div [@fadeInOut] *ngIf="usuario" class="m-3">
+  <div class="container-fluid bg-amarillo shadow-lg">
+    <div class="d-flex justify-content-between border-bottom border-dark">
+      <div></div>
+      <div class="text-center d-flex">
+        <app-avatar [image]="usuario.avatar" width="80px"></app-avatar>
+        &nbsp;&nbsp;
+        <h2 class="my-auto p-0">{{ usuario.apodo }}</h2>
+      </div>
+      <div>
+        <div class="dropdown show" *ngIf="esPerfilPropio">
+          <a
+            class="text-dark dropdown-toggle"
+            href="#"
+            role="button"
+            id="dropdownMenuLink"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </a>
+          <div
+            class="dropdown-menu dropdown-menu-end bg-rojo"
+            aria-labelledby="dropdownMenuLink"
+          >
+            <a class="dropdown-item" [routerLink]="['editar']">Editar perfil</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-2 pb-3 justify-content-around">
+      <div class="col-12">
+        <div class="bg-rojo w-75 mx-auto shadow">
+          <table class="w-100 table bg-rojo custom-table">
+            <tbody>
+              <tr>
+                <td>Apodo</td>
+                <td>{{ usuario.apodo }}</td>
+              </tr>
+              <tr>
+                <td>Nombre</td>
+                <td>{{ usuario.nombre }}</td>
+              </tr>
+              <tr *ngIf="usuario.apellido">
+                <td>Apellido</td>
+                <td>{{ usuario.apellido }}</td>
+              </tr>
+              <tr>
+                <td>Fecha de alta</td>
+                <td>
+                  {{ usuario.fechaAlta.getDate() }}/{{
+                    usuario.fechaAlta.getMonth() + 1
+                  }}/{{ usuario.fechaAlta.getFullYear() }}
+                </td>
+              </tr>
+              <tr>
+                <td>Idioma</td>
+                <td>{{ usuario.idioma }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-auto h3">
+        <span *ngIf="esPerfilPropio">Tus mazos públicos</span>
+        <span *ngIf="!esPerfilPropio">Sus mazos públicos</span>
+      </div>
+    </div>
+    <div class="row g-2">
+      <app-mazo-card
+        class="col-12 col-md-6 col-lg-4 d-flex"
+        [showOptions]="false"
+        [showFav]="false"
+        [mazo]="mazo"
+        *ngFor="let mazo of mazosPublicos"
+      >
+      </app-mazo-card>
+      <div *ngIf="mazosPublicos.length === 0" class="col-12 text-center h5">
+        <span *ngIf="esPerfilPropio">No tienes mazos públicos</span>
+        <span *ngIf="!esPerfilPropio"
+          >Este usuario no tiene mazos públicos</span
+        >
+      </div>
+    </div>
+    <br />
+  </div>
+</div>

@@ -1,0 +1,23 @@
+.parejasContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.seleccionado {
+  border: 2px solid yellow;
+  border-radius: 5px;
+}
+
+.acertado {
+  border: 2px solid green;
+  border-radius: 5px;
+}
+
+.fallado {
+  border: 2px solid red;
+  border-radius: 5px;
+}
+
+.palabra:hover {
+  background-color: rgba(255, 255, 0, 0.1);
+}

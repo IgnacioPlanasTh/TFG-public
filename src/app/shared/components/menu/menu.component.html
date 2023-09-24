@@ -1,0 +1,95 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-rojo">
+  <a class="navbar-brand" href="#">&nbsp;VocabMaster</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#menu-collapse"
+    aria-controls="menu-collapse"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="menu-collapse">
+    <ul class="navbar-nav"></ul>
+
+    <form class="row row-cols-lg-auto mx-auto g-3 align-items-center">
+      <div class="col-12">
+        <form (ngSubmit)="buscarMazos()">
+          <div class="input-group">
+            <input
+              type="text"
+              class="border-0 form-control border-warning bg-amarillo"
+              placeholder="Buscar mazos o usuarios"
+              aria-label="Buscar mazos o usuarios"
+              aria-describedby="menu-search-button"
+              [(ngModel)]="inputBusqueda"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <button
+              class="btn bg-verde"
+              (click)="buscarMazos()"
+              type="button"
+              id="menu-search-button"
+            >
+              Buscar
+            </button>
+          </div>
+        </form>
+      </div>
+    </form>
+
+    <ul *ngIf="!this.authService.isLogged" class="navbar-nav">
+      <li class="nav-item">
+        <a routerLink="/login" class="nav-link">Login</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/crear-cuenta" class="nav-link">Registrarse</a>
+      </li>
+    </ul>
+
+    <ul *ngIf="this.authService.isLogged" class="navbar-nav">
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          id="perfil-dropdown"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <span *ngIf="this.authService.usuario">
+            <app-avatar
+              width="32px"
+              [image]="this.authService.usuario.avatar"
+            ></app-avatar>
+            {{ this.authService.usuario.apodo }}
+          </span>
+        </a>
+        <div
+          class="dropdown-menu dropdown-menu-end bg-amarillo"
+          aria-labelledby="perfil-dropdown"
+        >
+          <a
+            class="dropdown-item nav-link"
+            [routerLink]="['/usuario', authService.usuarioId]"
+            >Mi perfil</a
+          >
+          <a
+            class="dropdown-item nav-link"
+            [routerLink]="['/mazos', 'usuario', this.authService.usuarioId]"
+            >Mi biblioteca</a
+          >
+          <a class="dropdown-item nav-link" [routerLink]="['/mazo']"
+            >Crear mazo</a
+          >
+          <div class="dropdown-divider border-dark"></div>
+          <a class="dropdown-item nav-link" routerLink="/" (click)="logout()"
+            >Cerrar sesión</a
+          >
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

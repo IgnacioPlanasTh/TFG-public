@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+
+.bg-rojo {
+  background: #ff7b54;
+}
+.bg-naranja,
+body {
+  background: #ffb26b;
+}
+.bg-amarillo {
+  background: #ffd56f;
+}
+.bg-verde {
+  background: #939b62 !important;
+}
+
+.bg-rojo:focus {
+  background: #ff7b54;
+}
+.bg-naranja:focus {
+  background: #ffb26b;
+}
+.bg-amarillo:focus {
+  background: #ffd56f;
+}
+.bg-verde:focus {
+  background: #939b62;
+}
+
+.activo {
+  background: #ffd56f;
+  border-radius: 25px;
+}
+
+.menu-form-input {
+  background: #ffd56f;
+  color: black;
+  border: none;
+}
+
+.break-text {
+  word-wrap: break-word;
+}
+
+/* Scollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

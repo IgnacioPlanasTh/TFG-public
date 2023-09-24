@@ -1,0 +1,19 @@
+<img
+  *ngIf="image"
+  class="img-fluid"
+  [ngStyle]="myStyle()"
+  [src]="src"
+  alt="Imagen de usuario"
+  width="32"
+  height="32"
+/>
+
+<img
+  *ngIf="!image"
+  class="img-fluid"
+  [ngStyle]="myStyle()"
+  src="../../../../assets/profile_images/defaul_user_profile_image.png"
+  alt="Imagen por defecto de usuario"
+  width="32"
+  height="32"
+/>

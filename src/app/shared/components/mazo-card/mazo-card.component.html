@@ -1,0 +1,81 @@
+<div class="card article-card flex-fill bg-verde">
+  <h5 class="card-header">
+    <div class="row justify-content-between">
+      <div (click)="goToMazo()" class="col-auto">
+        {{ mazo.nombre }} <span *ngIf="showFav && mazo.favorito">⭐</span>
+      </div>
+      <div class="col-auto" *ngIf="showOptions">
+        <div class="dropdown show">
+          <a
+            class="text-dark dropdown-toggle"
+            href="#"
+            role="button"
+            id="dropdownMenuLink"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </a>
+          <div>
+            <div
+              class="dropdown-menu dropdown-menu-end bg-rojo"
+              aria-labelledby="dropdownMenuLink"
+            >
+              <a
+                class="dropdown-item"
+                *ngIf="!mazo.favorito"
+                (click)="marcarComoFavorito()"
+                >Marcar como favorito⭐</a
+              >
+              <a
+                class="dropdown-item"
+                *ngIf="mazo.favorito"
+                (click)="marcarComoNoFavorito()"
+                >Quitar favorito</a
+              >
+              <a
+                class="dropdown-item"
+                *ngIf="!mazo.archivado"
+                (click)="archivar()"
+                >Archivar</a
+              >
+              <a
+                class="dropdown-item"
+                *ngIf="mazo.archivado"
+                (click)="desarchivar()"
+                >Desarchivar</a
+              >
+              <a class="dropdown-item" (click)="borrar()">Borrar mazo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </h5>
+  <div (click)="goToMazo()" class="card-body">
+    <div class="card-title row justify-content-around">
+      <div class="col-auto mr-auto">
+        {{ mazo.idioma1 }} - {{ mazo.idioma2 }}
+      </div>
+      <div class="col-auto ml-auto">{{ mazo.palabras.length }} palabras</div>
+    </div>
+    <div class="card-text">
+      <p>{{ mazo.descripcion }}</p>
+    </div>
+  </div>
+  <div class="card-footer" (click)="goToMazo()">
+    <div class="row justify-content-around">
+      <div class="col-auto text-muted">{{ mazo.printFechaCreacion() }}</div>
+      <div
+        id="div-avatar"
+        class="col-auto"
+        *ngIf="showAvatar"
+        (click)="goToPerfil()"
+      >
+        <app-avatar [image]="mazo.usuario.avatar" width="40px"></app-avatar>
+        {{ mazo.usuario.apodo }}
+      </div>
+    </div>
+  </div>
+</div>

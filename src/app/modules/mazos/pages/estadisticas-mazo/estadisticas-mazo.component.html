@@ -1,0 +1,125 @@
+<div [@fadeInOut] *ngIf="mazo !== null" class="m-1 m-md-3">
+  <div class="container-fluid bg-amarillo shadow-lg">
+    <div class="d-flex justify-content-between border-bottom border-dark">
+      <div></div>
+      <div class="text-center" x>
+        <h2>{{ mazo.nombre }}</h2>
+      </div>
+
+      <div class="dropdown show">
+        <a
+          class="text-dark dropdown-toggle"
+          href="#"
+          role="button"
+          id="dropdownMenuLink"
+          data-bs-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </a>
+
+        <div
+          class="dropdown-menu dropdown-menu-end bg-rojo"
+          aria-labelledby="dropdownMenuLink"
+        >
+          <a class="dropdown-item" [routerLink]="['/jugar', mazo._id]">Jugar</a>
+          <a class="dropdown-item" [routerLink]="['/mazo', mazo._id]"
+            >Volver al mazo</a
+          >
+        </div>
+      </div>
+    </div>
+    <div
+      id="descripcion-idioma-container"
+      class="row pt-2 pb-3 justify-content-around border-bottom border-dark"
+    >
+      <div class="col-sm-3 break-text">{{ mazo.descripcion }}</div>
+      <div class="col-sm-auto">
+        <app-banderas [pais]="mazo.idioma1"> </app-banderas>{{ mazo.idioma1 }} -
+        {{ mazo.idioma2 }} <app-banderas [pais]="mazo.idioma2"> </app-banderas>
+      </div>
+    </div>
+
+    <div
+      *ngIf="intentos && intentos.length > 0; else sinIntentos"
+      class="row pt-2 pb-3 justify-content-around"
+    >
+      <div class="col-md-9 mx-auto">
+        <div class="shadow">
+          <table class="w-100 table custom-table">
+            <thead class="">
+              <tr>
+                <td colspan="2">
+                  <div class="h3 text-center">Estadísticas Generales</div>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Veces Jugado: {{ vecesJugado }}</td>
+                <td>Última vez jugado: {{ ultimaVezJugado }}</td>
+              </tr>
+              <tr>
+                <td>
+                  Máximo de palabras acertadas en un intento:
+                  {{ maximoPalabrasAcertadas }}
+                </td>
+                <td>Total de palabras: {{ totalDePalabras }}</td>
+              </tr>
+              <tr>
+                <td>
+                  Porcentaje de acierto:
+                  {{ porcentajeAciertoMedio | number: "1.1-1" }}%
+                </td>
+                <td>
+                  Palabras acertadas por intento:
+                  {{ palabrasAcertadasPorIntento | number: "1.1-1" }}
+                </td>
+              </tr>
+              <tr>
+                <td>Palabra más acertada: {{ palabraMasAcertada }}</td>
+                <td>Palabra más fallada: {{ palabraMasFallada }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="chart-container row justify-content-end">
+          <div *ngIf="intentosMostrados" class="col-auto">
+            <button
+              *ngIf="intentosMostrados.length > 10"
+              class="btn btn-outline-success"
+              (click)="disminuirNumeroIntentosMostrados()"
+            >
+              Mostrar menos intentos
+            </button>
+            <span class="small">
+              Mostrando {{ intentosMostrados.length }} de
+              {{ intentos.length }} intentos
+            </span>
+            <button
+              *ngIf="intentosMostrados.length < intentos.length"
+              class="btn btn-outline-success"
+              (click)="aumentarNumeroIntentosMostrados()"
+            >
+              Mostrar más intentos
+            </button>
+          </div>
+        </div>
+
+        <div class="chart-container row justify-content-center">
+          <div class="col-md">
+            <canvas id="aciertosYErrores"></canvas>
+          </div>
+          <div class="col-md">
+            <canvas id="porcentajeAcierto"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #sinIntentos>
+      <div class="h2 text-center">No has realizado intentos con este mazo</div>
+    </ng-template>
+  </div>
+</div>

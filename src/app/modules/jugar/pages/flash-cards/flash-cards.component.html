@@ -1,0 +1,135 @@
+<div [@fadeInOut]>
+  <div *ngIf="mazo !== null" class="m-3">
+    <div class="container-fluid bg-amarillo p-2">
+      <div id="title-row" class="row justify-content-center">
+        <div *ngIf="practica !== null" id="bandera" class="col-auto">
+          <app-banderas
+            [pais]="natal ? mazo.idioma1 : mazo.idioma2"
+          ></app-banderas>
+        </div>
+        <div class="col-auto">
+          <h2>{{ mazo.nombre }}</h2>
+        </div>
+
+        <div id="botones-title" *ngIf="practica !== null" class="col-auto">
+          <div class="row">
+            <div class="col-12 col-md-auto">
+              <button class="btn bg-verde w-100" (click)="volverAMazo()">
+                Salir
+              </button>
+            </div>
+            <div class="col-12 col-md-auto">
+              <button
+                *ngIf="practica == false"
+                class="btn bg-verde mt-2 mt-md-0 ml-md-2 w-100"
+                (click)="terminarIntento()"
+              >
+                Terminar intento
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="practica == null; else jugar">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <div class="d-flex flex-column mt-2">
+              <button class="btn bg-verde" (click)="selectPractica()">
+                Práctica
+              </button>
+              <br />
+              <button class="btn bg-verde" (click)="selectIntento()">
+                Intento
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <ng-template #jugar>
+        <br />
+        <div *ngIf="!practica" class="row justify-content-center">
+          <div class="col-auto">
+            <button class="btn bg-verde" (click)="marcarComoAprendida()">
+              Marcar como aprendida
+            </button>
+          </div>
+          <div class="col-auto">
+            <button class="btn bg-verde" (click)="marcarComoNoAprendida()">
+              Marcar como no aprendida
+            </button>
+          </div>
+        </div>
+        <br />
+        <div class="scene scene--card">
+          <div
+            id="card"
+            class="card1"
+            [ngClass]="{
+              'border border-4': intento && intento[index].acertada != null,
+              'border-danger': intento && intento[index].acertada === false,
+              'border-success': intento && intento[index].acertada === true
+            }"
+          >
+            <div id="prev" *ngIf="index > 0" (click)="anteriorPalabra()">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </div>
+            <div
+              id="next"
+              *ngIf="index < mazo.palabras.length - 1"
+              (click)="siguientePalabra()"
+            >
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </div>
+            <div
+              class="card__face card__face--front bg-verde"
+              (click)="alternarTraduccion()"
+            >
+              <div class="break-text h3">{{ palabraActual.traduccion }}</div>
+            </div>
+            <div
+              class="card__face card__face--back bg-verde"
+              (click)="alternarTraduccion()"
+            >
+              <div class="break-text h3">{{ palabraActual.natal }}</div>
+            </div>
+          </div>
+          palabra {{ index + 1 }} de {{ mazo.palabras.length }}
+        </div>
+        <br /><br /><br />
+        <div class="row justify-content-around">
+          <div class="col-12 mb-1 col-md-auto text-center">
+            <button class="btn bg-verde" (click)="alternarTraduccion()">
+              cambiar traduccion
+            </button>
+          </div>
+          <div class="col-12 mb-1 col-md-auto text-center">
+            <button
+              *ngIf="index > 0"
+              class="btn bg-verde"
+              (click)="anteriorPalabra()"
+            >
+              anteriorPalabra
+            </button>
+          </div>
+          <div
+            class="col-12 mb-1 col-md-auto text-center"
+            *ngIf="index < mazo.palabras.length - 1"
+          >
+            <button class="btn bg-verde" (click)="siguientePalabra()">
+              Siguiente Palabra
+            </button>
+          </div>
+        </div>
+        <br />
+        <br />
+      </ng-template>
+    </div>
+  </div>
+  <div *ngIf="error">
+    <h1 class="text-center">Error al jugar</h1>
+    <h3 class="text-center">{{ errorMsg }}</h3>
+    <a href="/">Volver al inicio</a>
+  </div>
+</div>

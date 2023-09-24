@@ -1,0 +1,39 @@
+.pildora {
+  border-radius: 30px;
+  padding: 1em;
+}
+
+.pilodra-palabra {
+  border-radius: 50px;
+  padding: 0.5em;
+  text-align: center;
+}
+
+#palabras-overflow-container {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  word-wrap: break-word;
+  width: 200px;
+  text-align: center;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+}

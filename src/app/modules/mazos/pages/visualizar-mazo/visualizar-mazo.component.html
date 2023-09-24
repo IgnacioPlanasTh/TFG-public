@@ -1,0 +1,109 @@
+<div [@fadeInOut] *ngIf="mazo !== null" class="m-md-3 m-1">
+  <div class="container-fluid bg-amarillo shadow-lg">
+    <div class="d-flex justify-content-between border-bottom border-dark">
+      <div>
+        <div *ngIf="!isOwner" id="div-avatar" (click)="goToPerfil()">
+          <app-avatar [image]="mazo.usuario.avatar" width="40px"></app-avatar>
+          {{ mazo.usuario.apodo }}
+        </div>
+      </div>
+      <div class="text-center">
+        <span class="h2">{{ mazo.nombre }}</span>
+        <a
+          *ngIf="isOwner"
+          class="btn btn-outline-success m-2 m-md-0 mx-md-2"
+          [routerLink]="['/jugar', mazo._id]"
+          >Jugar</a
+        >
+      </div>
+
+      <div class="dropdown show">
+        <a
+          class="text-dark dropdown-toggle"
+          href="#"
+          role="button"
+          id="dropdownMenuLink"
+          data-bs-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </a>
+        <div>
+          <div
+            *ngIf="isOwner"
+            class="dropdown-menu dropdown-menu-end bg-rojo"
+            aria-labelledby="dropdownMenuLink"
+          >
+            <a
+              class="dropdown-item"
+              [routerLink]="['/mazo', mazo._id, 'estadisticas']"
+              >Mis Estadísticas</a
+            >
+            <div class="dropdown-divider border-dark"></div>
+            <a
+              class="dropdown-item"
+              [routerLink]="['/mazo', mazo._id, 'editar']"
+              >Editar</a
+            >
+            <div class="dropdown-divider border-dark"></div>
+            <a class="dropdown-item" (click)="exportarAJSON()"
+              >Exportar a JSON</a
+            >
+            <a class="dropdown-item" (click)="borrarMazo()">Eliminar mazo</a>
+          </div>
+          <div
+            *ngIf="!isOwner"
+            class="dropdown-menu dropdown-menu-end bg-rojo"
+            aria-labelledby="dropdownMenuLink"
+          >
+            <a class="dropdown-item" (click)="copiarMazo()">Copiar mazo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="descripcion-idioma-container"
+      class="row pt-2 pb-3 justify-content-around border-bottom border-dark"
+    >
+      <div class="col-sm-3 text-center break-text">{{ mazo.descripcion }}</div>
+      <div class="col-sm-auto text-center">
+        <app-banderas [pais]="mazo.idioma1"> </app-banderas>{{ mazo.idioma1 }} -
+        {{ mazo.idioma2 }} <app-banderas [pais]="mazo.idioma2"> </app-banderas>
+      </div>
+    </div>
+    <div id="palabras-container ">
+      <div id="palabras-overflow-container">
+        <div
+          *ngFor="let palabra of mazo.palabras; index as i"
+          class="row pildora bg-verde m-2 w-75 mx-auto justify-content-around"
+        >
+          <div class="col-md-2 text-center align-self-center">
+            <h3>{{ i + 1 }}</h3>
+          </div>
+          <div class="col-md-10 row">
+            <div class="col-md-5 m-1 pilodra-palabra bg-naranja break-text">
+              {{ palabra.natal }}
+            </div>
+            <div class="col-md-5 m-1 pilodra-palabra bg-naranja break-text">
+              {{ palabra.traduccion }}
+            </div>
+          </div>
+        </div>
+        <div
+          *ngIf="isOwner && mazo.palabras.length == 0"
+          class="text-center pt-2"
+        >
+          Este mazo todavía no tiene palabras<br />
+          <a
+            class="btn bg-verde m-2"
+            [routerLink]="['/mazo', mazo._id, 'editar']"
+            >Añadir palabras</a
+          >
+        </div>
+      </div>
+    </div>
+    <br />
+  </div>
+</div>

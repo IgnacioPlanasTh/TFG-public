@@ -1,0 +1,128 @@
+<div [@fadeInOut] class="m-3">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 bg-rojo">
+        <div class="navbar navbar-expand-md">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#busqueda-menu"
+            aria-controls="busqueda-menu"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="d-md-none navbar-brand" href="#">Filtros</a>
+          <br />
+          <div class="collapse navbar-collapse" id="busqueda-menu">
+            <div class="d-flex flex-column w-100">
+              <div class="py-2 busqueda-menu-item">
+                <button class="btn w-100" (click)="limpiarFiltros()">
+                  Limpiar filtros
+                </button>
+              </div>
+              <div class="py-2 busqueda-menu-item">
+                <button class="btn w-100" (click)="abrirIdiomaNatal()">
+                  Idioma natal
+                </button>
+              </div>
+              <div class="py-2 busqueda-menu-item">
+                <button class="btn w-100" (click)="abrirIdiomaTraduccion()">
+                  Idioma traducción
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-10 bg-amarillo p-2">
+        <div class="row justify-content-center">
+          <div class="col-auto" *ngIf="q !== undefined">
+            <h3 *ngIf="q.length > 0">Resultados de la búsqueda: "{{ q }}"</h3>
+            <h3 *ngIf="q.length === 0">Mostrando todos los mazos públicos</h3>
+          </div>
+          <div class="col-auto" *ngIf="q === undefined">
+            <h3>Use la herramienta de busqueda para buscar mazos</h3>
+          </div>
+        </div>
+        <div class="row g-2" *ngIf="mazos">
+          <app-mazo-card
+            class="col-12 col-md-6 col-lg-4 d-flex"
+            [showOptions]="false"
+            [showFav]="false"
+            [mazo]="mazo"
+            *ngFor="let mazo of mazos"
+          >
+          </app-mazo-card>
+          <span class="h5 text-center" *ngIf="mazos.length === 0"
+            >No se han encontrado mazos</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="overlay"
+  *ngIf="showFiltroIdiomaNatal || showFiltroIdiomaTraduccion"
+  (click)="closeOverlay()"
+>
+  <div
+    class="center-box bg-amarillo"
+    (click)="doNothing(); $event.stopPropagation()"
+  >
+    <div class="row justify-content-between">
+      <div class="col-auto">
+        <button class="btn btn-outline-success" (click)="aplicarFiltros()">
+          Filtrar
+        </button>
+      </div>
+      <div class="col-auto h3 text-center">
+        <span *ngIf="showFiltroIdiomaNatal">Seleccionar idioma natal</span>
+        <span *ngIf="showFiltroIdiomaTraduccion"
+          >Seleccionar idioma traducción</span
+        >
+      </div>
+      <div class="col-auto text-center">
+        <button class="btn btn-outline-danger" (click)="closeOverlay()">
+          X
+        </button>
+      </div>
+    </div>
+
+    <div class="row mt-2 g-2" *ngIf="showFiltroIdiomaNatal">
+      <div class="col-6 col-sm-3" *ngFor="let idioma of idiomasDisponibles">
+        <button
+          class="w-100"
+          [class]="
+            idiomasNativosSeleccionados.includes(idioma.value)
+              ? 'btn btn-success'
+              : 'btn btn-secondary'
+          "
+          (click)="toggleIdiomaNativo(idioma.value)"
+        >
+          {{ idioma.name }}
+        </button>
+      </div>
+    </div>
+
+    <div class="row mt-2 g-2" *ngIf="showFiltroIdiomaTraduccion">
+      <div class="col-6 col-sm-3" *ngFor="let idioma of idiomasDisponibles">
+        <button
+          class="w-100"
+          [class]="
+            idiomasTraduccionSeleccionados.includes(idioma.value)
+              ? 'btn btn-success'
+              : 'btn btn-secondary'
+          "
+          (click)="toggleIdiomaTraduccion(idioma.value)"
+        >
+          {{ idioma.name }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

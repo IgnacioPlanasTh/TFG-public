@@ -1,0 +1,264 @@
+<div [@fadeInOut] class="container bg-amarillo my-4">
+  <div class="p-5">
+    <h2 class="text-center">Crear cuenta</h2>
+    <br />
+    <div id="google-login-div"></div>
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()"
+      class="mx-auto row g-2"
+    >
+      <!-- Correo -->
+      <div class="col-md-6">
+        <label for="email-input" class="form-label"
+          >Correo<span class="text-danger">*</span></label
+        >
+        <input
+          type="email"
+          class="form-control"
+          id="email-input"
+          formControlName="correo"
+          placeholder="johnSmith@example.com"
+        />
+        <div
+          *ngIf="
+            registerForm.controls['correo'].invalid &&
+            (registerForm.controls['correo'].dirty ||
+              registerForm.controls['correo'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="registerForm.controls['correo'].errors.required">
+            Este campo es obligatorio
+          </div>
+          <div *ngIf="registerForm.controls['correo'].errors.email">
+            Introduzca un correo válido
+          </div>
+        </div>
+      </div>
+      <!-- /Correo -->
+      <!-- Apodo -->
+      <div class="col-md-6">
+        <label for="apodo-input" class="form-label"
+          >Apodo<span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="apodo-input"
+          formControlName="apodo"
+          placeholder="JohnSmith011"
+        />
+        <div
+          *ngIf="
+            registerForm.controls['apodo'].invalid &&
+            (registerForm.controls['apodo'].dirty ||
+              registerForm.controls['apodo'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="registerForm.controls['apodo'].errors.required">
+            Este campo es obligatorio
+          </div>
+          <div *ngIf="registerForm.controls['apodo'].errors.minlength">
+            Debe ser de 3 caracteres mínimo
+          </div>
+          <div *ngIf="registerForm.controls['apodo'].errors.maxlength">
+            Máximo 20 caracteres
+          </div>
+        </div>
+      </div>
+      <!-- /Apodo -->
+      <!-- Contraseña -->
+      <div class="col-md-6">
+        <label for="password-input" class="form-label"
+          >Contraseña<span class="text-danger">*</span></label
+        >
+
+        <input
+          type="password"
+          class="form-control"
+          id="password-input"
+          formControlName="contraseña"
+          placeholder="Contraseña"
+        />
+
+        <div
+          *ngIf="
+            registerForm.controls['contraseña'].invalid &&
+            (registerForm.controls['contraseña'].dirty ||
+              registerForm.controls['contraseña'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="registerForm.controls['contraseña'].errors.required">
+            Este campo es obligatorio
+          </div>
+          <div *ngIf="registerForm.controls['contraseña'].errors.minlength">
+            La contraseña debe ser de 5 caracteres mínimo
+          </div>
+          <div *ngIf="registerForm.controls['contraseña'].errors.notEqual">
+            Las contraseñas no coinciden
+          </div>
+        </div>
+      </div>
+      <!-- /Contraseña -->
+      <!-- Contraseña2 -->
+      <div class="col-md-6">
+        <label for="password2-input" class="form-label"
+          >Repita la contraseña<span class="text-danger">*</span></label
+        >
+        <input
+          type="password"
+          class="form-control"
+          id="password2-input"
+          formControlName="contraseña2"
+          placeholder="Repita la contraseña"
+        />
+
+        <div
+          *ngIf="
+            registerForm.controls['contraseña2'].invalid &&
+            (registerForm.controls['contraseña2'].dirty ||
+              registerForm.controls['contraseña2'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="registerForm.controls['contraseña2'].errors.required">
+            Este campo es obligatorio
+          </div>
+          <div *ngIf="registerForm.controls['contraseña2'].errors.minlength">
+            La contraseña debe ser de 5 caracteres mínimo
+          </div>
+          <div *ngIf="registerForm.controls['contraseña2'].errors.notEqual">
+            Las contraseñas no coinciden
+          </div>
+        </div>
+      </div>
+      <!-- /Contraseña2 -->
+      <!-- Nombre -->
+      <div class="col-md-6">
+        <label for="nombre-input" class="form-label"
+          >Nombre<span class="text-danger">*</span></label
+        >
+
+        <input
+          type="text"
+          class="form-control"
+          id="nombre-input"
+          formControlName="nombre"
+          placeholder="John"
+        />
+
+        <div
+          *ngIf="
+            registerForm.controls['nombre'].invalid &&
+            (registerForm.controls['nombre'].dirty ||
+              registerForm.controls['nombre'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="registerForm.controls['nombre'].errors.required">
+            Este campo es obligatorio
+          </div>
+          <div *ngIf="registerForm.controls['nombre'].errors.maxlength">
+            Máximo 50 caracteres
+          </div>
+        </div>
+      </div>
+      <!-- /Nombre -->
+      <!-- Apellido -->
+      <div class="col-md-6">
+        <label for="apellido-input" class="form-label">Apellido</label>
+        <input
+          type="text"
+          class="form-control"
+          id="apellido-input"
+          formControlName="apellido"
+          placeholder="Smith"
+        />
+        <div
+          *ngIf="
+            registerForm.controls['apellido'].invalid &&
+            (registerForm.controls['apellido'].dirty ||
+              registerForm.controls['apellido'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="registerForm.controls['apellido'].errors.maxlength">
+            Máximo 50 caracteres
+          </div>
+        </div>
+      </div>
+      <!-- /Apellido -->
+      <div class="col-md-6">
+        <app-file-upload
+          label="Imagen de perfil"
+          formControlName="image"
+        ></app-file-upload>
+        <div
+          *ngIf="
+            registerForm.controls['image'].invalid &&
+            (registerForm.controls['image'].dirty ||
+              registerForm.controls['image'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="registerForm.controls['image'].errors.requiredFileType">
+            La imagen debe ser PNG
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <app-select-idiomas
+          [options]="idiomas"
+          formControlName="idioma"
+          label="Idioma "
+        ></app-select-idiomas>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="aceptoCondiciones"
+              formControlName="aceptoCondiciones"
+            />
+            <label class="form-check-label" for="aceptoCondiciones"
+              >Acepto las
+              <a [routerLink]="['/condiciones-de-uso']" target="_blank"
+                >condiciones de uso y politica de privacidad</a
+              ></label
+            >
+          </div>
+          <div
+            *ngIf="
+              registerForm.get('aceptoCondiciones').invalid &&
+              (registerForm.get('aceptoCondiciones').dirty ||
+                registerForm.get('aceptoCondiciones').touched)
+            "
+            class="text-danger"
+          >
+            Debes aceptar las condiciones para continuar.
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="errores"
+        class="is-invalid text-danger"
+        *ngIf="errores && errores.length > 0"
+      >
+        {{ errores }}
+      </div>
+
+      <div class="col-auto mx-auto">
+        <button type="submit" class="btn bg-verde">Crear cuenta</button>
+      </div>
+    </form>
+
+    <div id="google-button"></div>
+  </div>
+</div>

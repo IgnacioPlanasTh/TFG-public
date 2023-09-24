@@ -1,0 +1,16 @@
+<label for="idiomas-input" class="form-label">{{ label }}</label>
+<select
+  class="form-select"
+  aria-label="Idioma"
+  [ngModel]="selected"
+  (ngModelChange)="valueChanged($event)"
+  id="idiomas-input"
+>
+  <option *ngFor="let idioma of options" [value]="idioma.value">
+    {{ idioma.name }}
+  </option>
+</select>
+
+<!-- <select class="form-select" aria-label="Default select example">
+    <option *ngFor="let idioma of options" [value]="idioma.value">{{idioma.name}}</option>
+  </select> -->

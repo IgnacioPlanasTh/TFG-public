@@ -1,0 +1,196 @@
+<div [@fadeInOut] class="container bg-amarillo my-4">
+  <div class="p-5">
+    <h2 class="text-center">Editar cuenta</h2>
+    <br />
+    <div id="google-login-div"></div>
+    <form
+      [formGroup]="editForm"
+      (ngSubmit)="onSubmit()"
+      class="mx-auto row g-2"
+    >
+      <!-- Apodo -->
+      <div class="col-md-6">
+        <label for="apodo-input" class="form-label"
+          >Apodo<span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="apodo-input"
+          formControlName="apodo"
+          placeholder="JohnSmith011"
+        />
+        <div
+          *ngIf="
+            editForm.controls['apodo'].invalid &&
+            (editForm.controls['apodo'].dirty ||
+              editForm.controls['apodo'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="editForm.controls['apodo'].errors.required">
+            Este campo es obligatorio
+          </div>
+          <div *ngIf="editForm.controls['apodo'].errors.minlength">
+            Debe ser de 3 caracteres mínimo
+          </div>
+          <div *ngIf="editForm.controls['apodo'].errors.maxlength">
+            Máximo 20 caracteres
+          </div>
+        </div>
+      </div>
+      <!-- /Apodo -->
+      <!-- Nombre -->
+      <div class="col-md-6">
+        <label for="nombre-input" class="form-label"
+          >Nombre<span class="text-danger">*</span></label
+        >
+
+        <input
+          type="text"
+          class="form-control"
+          id="nombre-input"
+          formControlName="nombre"
+          placeholder="John"
+        />
+
+        <div
+          *ngIf="
+            editForm.controls['nombre'].invalid &&
+            (editForm.controls['nombre'].dirty ||
+              editForm.controls['nombre'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="editForm.controls['nombre'].errors.required">
+            Este campo es obligatorio
+          </div>
+          <div *ngIf="editForm.controls['nombre'].errors.maxlength">
+            Máximo 50 caracteres
+          </div>
+        </div>
+      </div>
+      <!-- /Nombre -->
+      <!-- Apellido -->
+      <div class="col-md-6">
+        <label for="apellido-input" class="form-label">Apellido</label>
+        <input
+          type="text"
+          class="form-control"
+          id="apellido-input"
+          formControlName="apellido"
+          placeholder="Smith"
+        />
+        <div
+          *ngIf="
+            editForm.controls['apellido'].invalid &&
+            (editForm.controls['apellido'].dirty ||
+              editForm.controls['apellido'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="editForm.controls['apellido'].errors.maxlength">
+            Máximo 50 caracteres
+          </div>
+        </div>
+      </div>
+      <!-- /Apellido -->
+      <div class="col-md-6">
+        <app-file-upload
+          label="Imagen de perfil"
+          formControlName="image"
+        ></app-file-upload>
+        <div
+          *ngIf="
+            editForm.controls['image'].invalid &&
+            (editForm.controls['image'].dirty ||
+              editForm.controls['image'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="editForm.controls['image'].errors.requiredFileType">
+            La imagen debe ser PNG
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <app-select-idiomas
+          [options]="idiomas"
+          formControlName="idioma"
+          label="Idioma "
+        ></app-select-idiomas>
+      </div>
+      <!-- Contraseña -->
+      <div class="col-md-6">
+        <label for="password-input" class="form-label">Nueva contraseña</label>
+
+        <input
+          type="password"
+          class="form-control"
+          id="password-input"
+          formControlName="contraseña"
+          placeholder="Contraseña"
+        />
+
+        <div
+          *ngIf="
+            editForm.controls['contraseña'].invalid &&
+            (editForm.controls['contraseña'].dirty ||
+              editForm.controls['contraseña'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="editForm.controls['contraseña'].errors.required">
+            Este campo es obligatorio
+          </div>
+          <div *ngIf="editForm.controls['contraseña'].errors.minlength">
+            La contraseña debe ser de 5 caracteres mínimo
+          </div>
+          <div *ngIf="editForm.controls['contraseña'].errors.notEqual">
+            Las contraseñas no coinciden
+          </div>
+        </div>
+      </div>
+      <!-- /Contraseña -->
+      <!-- Contraseña2 -->
+      <div class="col-md-6">
+        <label for="password2-input" class="form-label"
+          >Repita la contraseña</label
+        >
+        <input
+          type="password"
+          class="form-control"
+          id="password2-input"
+          formControlName="contraseña2"
+          placeholder="Repita la contraseña"
+        />
+
+        <div
+          *ngIf="
+            editForm.controls['contraseña2'].invalid &&
+            (editForm.controls['contraseña2'].dirty ||
+              editForm.controls['contraseña2'].touched)
+          "
+          class="is-invalid text-danger"
+        >
+          <div *ngIf="editForm.controls['contraseña2'].errors.required">
+            Este campo es obligatorio
+          </div>
+          <div *ngIf="editForm.controls['contraseña2'].errors.minlength">
+            La contraseña debe ser de 5 caracteres mínimo
+          </div>
+          <div *ngIf="editForm.controls['contraseña2'].errors.notEqual">
+            Las contraseñas no coinciden
+          </div>
+        </div>
+      </div>
+      <!-- /Contraseña2 -->
+      <!-- Div auxiliar para centrar-->
+      <div class="col-md-6"></div>
+
+      <div class="col-auto mt-0 mt-md-5 mx-auto">
+        <button type="submit" class="btn bg-verde">Actualizar datos</button>
+      </div>
+    </form>
+  </div>
+</div>

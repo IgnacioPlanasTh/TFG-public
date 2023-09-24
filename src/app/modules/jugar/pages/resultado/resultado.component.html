@@ -1,0 +1,177 @@
+<div [@fadeInOut] class="m-3">
+  <div class="container-fluid bg-amarillo p-2">
+    <div *ngIf="mazoId !== null && intento.length > 0; else vacio">
+      <div class="h3 text-center">
+        Has acertado {{ palabrasAcertadas }} de {{ palabrasTotales }} palabras
+      </div>
+      <div *ngIf="fechaResponse" class="h5 text-center">
+        {{ fechaResponse }}
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-auto text-center mb-2 mb-md-0">
+          <a
+            class="btn btn-outline-success"
+            [routerLink]="['/mazo', mazoId, 'estadisticas']"
+            >Ver estadísticas</a
+          >
+        </div>
+        <div class="col-md-auto text-center mb-2 mb-md-0">
+          <a class="btn btn-outline-success" [routerLink]="['/jugar', mazoId]"
+            >Volver a jugar</a
+          >
+        </div>
+        <div class="col-md-auto text-center">
+          <button
+            *ngIf="showNatal && mazo"
+            class="btn btn-outline-success"
+            (click)="toogleIdioma()"
+          >
+            <app-banderas [pais]="mazo.idioma1"></app-banderas>
+          </button>
+          <button
+            *ngIf="!showNatal && mazo"
+            class="btn btn-outline-success"
+            (click)="toogleIdioma()"
+          >
+            <app-banderas [pais]="mazo.idioma2"></app-banderas>
+          </button>
+        </div>
+      </div>
+      <br />
+      <div class="row justify-content-center mb-2">
+        <div class="col-11 col-md-8">
+          <div class="row align-items-center shadow">
+            <div class="col-md-5 text-center">
+              <span class="h4"> Acertadas </span>
+            </div>
+            <div class="col-md-7">
+              <ul class="list-inline">
+                <li
+                  *ngFor="let palabra of arrayPalabrasAcertadas"
+                  class="list-inline-item bg-transparent border-0"
+                >
+                  <span *ngIf="showNatal">{{ palabra.natal }}</span
+                  ><span *ngIf="!showNatal">{{ palabra.traduccion }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mb-2">
+        <div class="col-11 col-md-8">
+          <div class="row align-items-center shadow">
+            <div class="col-md-5 text-center">
+              <span class="h4"> Falladas </span>
+            </div>
+            <div class="col-md-7">
+              <ul class="list-inline">
+                <li
+                  *ngFor="let palabra of arrayPalabrasFalladas"
+                  class="list-inline-item bg-transparent border-0"
+                >
+                  <span *ngIf="showNatal">{{ palabra.natal }}</span
+                  ><span *ngIf="!showNatal">{{ palabra.traduccion }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center mb-2">
+        <div class="col-11 col-md-8">
+          <table *ngIf="comparacion" class="table border-dark table-responsive">
+            <thead>
+              <tr>
+                <th colspan="2" class="text-center">
+                  Con respecto al intento anterior...
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Acertadas</th>
+                <td>
+                  <ul class="list-inline">
+                    <li
+                      *ngFor="let palabra of comparacion.acertadasSiempre"
+                      class="list-inline-item bg-transparent border-0"
+                    >
+                      <span *ngIf="showNatal">{{ palabra.natal }}</span
+                      ><span *ngIf="!showNatal">{{ palabra.traduccion }}</span>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Falladas</th>
+                <td>
+                  <ul class="list-inline">
+                    <li
+                      *ngFor="let palabra of comparacion.falladasSiempre"
+                      class="list-inline-item bg-transparent border-0"
+                    >
+                      <span *ngIf="showNatal">{{ palabra.natal }}</span
+                      ><span *ngIf="!showNatal">{{ palabra.traduccion }}</span>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Aprendidas</th>
+                <td>
+                  <ul class="list-inline">
+                    <li
+                      *ngFor="let palabra of comparacion.acertadasTrasFallo"
+                      class="list-inline-item bg-transparent border-0"
+                    >
+                      <span *ngIf="showNatal">{{ palabra.natal }}</span
+                      ><span *ngIf="!showNatal">{{ palabra.traduccion }}</span>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Olvidadas</th>
+                <td>
+                  <ul class="list-inline">
+                    <li
+                      *ngFor="let palabra of comparacion.falladasTrasAcierto"
+                      class="list-inline-item bg-transparent border-0"
+                    >
+                      <span *ngIf="showNatal">{{ palabra.natal }}</span
+                      ><span *ngIf="!showNatal">{{ palabra.traduccion }}</span>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Palabras nuevas</th>
+                <td>
+                  <ul class="list-inline">
+                    <li
+                      *ngFor="let palabra of comparacion.nuevas"
+                      class="list-inline-item bg-transparent border-0"
+                    >
+                      <span *ngIf="showNatal">{{ palabra.natal }}</span
+                      ><span *ngIf="!showNatal">{{ palabra.traduccion }}</span>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <ng-template #vacio>
+      <div class="h3 text-center">No has realizado ningun intento</div>
+      <div class="text-center">
+        <button (click)="volverAMazo()" class="btn btn-outline-success">
+          Volver al mazo
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,179 @@
+<div [@fadeInOut]>
+  <div *ngIf="mazo !== null" class="m-3">
+    <div class="container-fluid bg-amarillo">
+      <form [formGroup]="editarMazoForm" (ngSubmit)="guardarCambios()">
+        <div class="row justify-content-between border-bottom border-dark py-2">
+          <div class="col-auto mx-auto"></div>
+          <div class="col-auto text-center h2 mx-auto">
+            <input
+              type="text"
+              class="border border-dark rounded bg-naranja"
+              id="nombre-input"
+              formControlName="nombre"
+              placeholder="Nombre"
+            />
+            - Editar
+            <div
+              *ngIf="
+                editarMazoForm.controls['nombre'].invalid &&
+                (editarMazoForm.controls['nombre'].dirty ||
+                  editarMazoForm.controls['nombre'].touched)
+              "
+              class="is-invalid text-danger h6"
+            >
+              <div *ngIf="editarMazoForm.controls['nombre'].errors.maxlength">
+                Máximo 30 caracteres
+              </div>
+              <div *ngIf="editarMazoForm.controls['nombre'].errors.required">
+                Campo obligatorio
+              </div>
+            </div>
+          </div>
+
+          <div class="col-auto mx-auto">
+            <button
+              class="m-0 btn btn-outline-success"
+              (click)="guardarCambios()"
+              [disabled]="editarMazoForm.invalid"
+            >
+              Guardar cambios
+            </button>
+            &nbsp;
+            <button
+              class="m-0 btn btn-outline-danger"
+              (click)="descartarCambios()"
+            >
+              Descartar cambios
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="descripcion-idioma-container"
+          class="row pt-2 pb-3 justify-content-around border-bottom border-dark mb-2"
+        >
+          <div class="col-sm-3 break-text">
+            <textarea
+              class="border border-dark form-control bg-naranja"
+              id="apellido-input"
+              formControlName="descripcion"
+              rows="4"
+            ></textarea>
+            <div
+              *ngIf="
+                editarMazoForm.controls['descripcion'].invalid &&
+                (editarMazoForm.controls['descripcion'].dirty ||
+                  editarMazoForm.controls['descripcion'].touched)
+              "
+              class="is-invalid text-danger"
+            >
+              <div
+                *ngIf="editarMazoForm.controls['descripcion'].errors.maxlength"
+              >
+                Máximo 100 caracteres
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-auto text-center">
+            <app-banderas [pais]="mazo.idioma1"> </app-banderas
+            >{{ mazo.idioma1 }} - {{ mazo.idioma2 }}
+            <app-banderas [pais]="mazo.idioma2"> </app-banderas>
+            <br />
+            <div class="text-center">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                formControlName="privado"
+              />
+              Privado
+              <div class="tooltip-container">
+                <span class="badge bg-info">?</span>
+                <span class="tooltip-text"
+                  >Los mazos privados no son accesibles para otros usuarios en
+                  la búsqueda de mazos</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="palabras-container">
+          <div id="palabras-overflow-container">
+            <ng-container
+              formArrayName="palabras"
+              *ngFor="
+                let palabra of editarMazoForm.get('palabras')['controls'];
+                let i = index
+              "
+            >
+              <div
+                [formGroupName]="i"
+                class="row pildora bg-verde m-2 w-75 mx-auto justify-content-around"
+              >
+                <div class="col-md-2 text-center align-self-center">
+                  <h3>{{ i + 1 }}</h3>
+                </div>
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-5 m-1">
+                      <input
+                        class="w-100 border border-dark pilodra-palabra bg-naranja"
+                        formControlName="natal"
+                        #nuevoInput
+                      />
+                      <div
+                        *ngIf="
+                          palabra.get('natal').invalid &&
+                          (palabra.get('natal').dirty ||
+                            palabra.get('natal').touched)
+                        "
+                        class="is-invalid text-danger"
+                      >
+                        <div *ngIf="palabra.get('natal').errors.maxlength">
+                          Palabra demasiado larga
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-5 m-1">
+                      <input
+                        class="w-100 border border-dark pilodra-palabra bg-naranja"
+                        formControlName="traduccion"
+                      />
+                      <div
+                        *ngIf="
+                          palabra.get('traduccion').invalid &&
+                          (palabra.get('traduccion').dirty ||
+                            palabra.get('traduccion').touched)
+                        "
+                        class="is-invalid text-danger"
+                      >
+                        <div *ngIf="palabra.get('traduccion').errors.maxlength">
+                          Palabra demasiado larga
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2 text-center">
+                  <button
+                    class="btn btn-danger"
+                    type="button"
+                    (click)="deletePalabra(i)"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="text-center mt-1">
+          <button class="btn bg-verde" type="button" (click)="crearPalabra()">
+            Nueva palabra</button
+          ><br />
+        </div>
+        <br />
+      </form>
+    </div>
+  </div>
+</div>

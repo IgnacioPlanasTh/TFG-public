@@ -1,0 +1,97 @@
+<div [@fadeInOut]>
+  <div *ngIf="mazo !== null" class="m-1 m-md-3">
+    <div class="container-fluid bg-amarillo p-2">
+      <div id="title-row" class="row justify-content-center">
+        <div class="col-auto">
+          <h2>{{ mazo.nombre }}</h2>
+        </div>
+
+        <div id="botones-title" *ngIf="practica !== null" class="col-auto">
+          <div class="row">
+            <div class="col-12 col-md-auto">
+              <button
+                class="btn btn-outline-danger w-100"
+                (click)="volverAMazo()"
+              >
+                Salir
+              </button>
+            </div>
+            <div class="col-12 col-md-auto">
+              <button
+                *ngIf="practica == false"
+                class="btn btn-outline-success mt-2 mt-md-0 ml-md-2 w-100"
+                (click)="terminarIntento()"
+              >
+                Terminar intento
+              </button>
+            </div>
+            <div class="col-12 col-md-auto">
+              <button
+                *ngIf="practica == true"
+                class="btn btn-outline-success mt-2 mt-md-0 ml-md-2 w-100"
+                (click)="reiniciarIntentoPractica()"
+              >
+                Reiniciar intento
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="practica == null; else jugar">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <div class="d-flex flex-column mt-2">
+              <button class="btn bg-verde" (click)="selectPractica()">
+                Práctica
+              </button>
+              <br />
+              <button class="btn bg-verde" (click)="selectIntento()">
+                Intento
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <ng-template #jugar>
+        <div class="row justify-content-around">
+          <div class="col-5 text-center">
+            <span class="h5 mx-2">Originales</span
+            ><app-banderas [pais]="mazo.idioma1"></app-banderas>
+            <div class="parejasContainer" id="palabrasNatalesContainer">
+              <div
+                class="my-1 palabra break-text"
+                (click)="clickNatal($event)"
+                *ngFor="let palabra of palabrasNatalMostradas"
+                [attr.palabraId]="palabra._id"
+              >
+                {{ palabra.natal }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-5 text-center">
+            <span class="h5 mx-2">Traduccion</span
+            ><app-banderas [pais]="mazo.idioma2"></app-banderas>
+            <div class="parejasContainer" id="palabrasTraduccionesContainer">
+              <div
+                class="my-1 palabra break-text"
+                (click)="clickTraduccion($event)"
+                *ngFor="let palabra of palabrasTraduccionMostradas"
+                [attr.palabraId]="palabra._id"
+              >
+                {{ palabra.traduccion }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div *ngIf="error">
+    <h1 class="text-center">Error al jugar</h1>
+    <h3 class="text-center">{{ errorMsg }}</h3>
+    <a href="/">Volver al inicio</a>
+  </div>
+</div>
