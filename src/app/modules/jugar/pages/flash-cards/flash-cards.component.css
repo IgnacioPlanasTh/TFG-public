@@ -92,3 +92,11 @@
 #title-row {
   position: relative;
 }
+
+.button-ok:hover {
+  color: #fff;
+}
+
+.button-not-ok:hover {
+  color: #f00;
+}

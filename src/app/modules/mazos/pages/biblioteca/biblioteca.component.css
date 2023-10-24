@@ -1,4 +1,5 @@
-.biblioteca-menu-item:hover {
+.biblioteca-menu-item:hover,
+.biblioteca-menu-item:active {
   /* background-color: rgba(255, 124, 84, 0.641); */
   filter: brightness(150%);
   box-shadow: inset 0 0 0 10em rgba(255, 255, 255, 0.3);

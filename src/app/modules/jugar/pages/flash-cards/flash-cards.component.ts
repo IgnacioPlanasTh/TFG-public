@@ -44,7 +44,7 @@ export class FlashCardsComponent implements OnInit {
             this.error = true;
             this.errorMsg = "Este mazo no tiene palabras";
           } else {
-            this.mazo = mazo;
+            this.mazo = new Mazo(mazo);
           }
         })
         .catch((err) => {

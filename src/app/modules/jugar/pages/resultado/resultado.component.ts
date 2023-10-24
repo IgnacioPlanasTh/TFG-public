@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { IntentoService } from "../../services/intento.service";
 import { Palabra } from "src/app/core/models/Palabra";
 import { PalabraIntento } from "src/app/core/models/PalabraIntento";
@@ -16,7 +16,7 @@ import { fadeInOutAnimation } from "src/app/shared/animations/animations";
   styleUrls: ["./resultado.component.css"],
   animations: [fadeInOutAnimation],
 })
-export class ResultadoComponent {
+export class ResultadoComponent implements OnInit {
   intento: Array<PalabraIntento> = [];
   arrayPalabrasAcertadas: Array<PalabraIntento> = [];
   arrayPalabrasFalladas: Array<PalabraIntento> = [];
@@ -32,14 +32,16 @@ export class ResultadoComponent {
   intentoGuardado: Intento;
 
   constructor(
-    private intentoService: IntentoService,
+    public intentoService: IntentoService,
     private route: ActivatedRoute,
     private router: Router,
-    fechaService: FechaService,
+    private fechaService: FechaService,
     private mazoService: MazoService,
     private titleService: Title,
-  ) {
-    titleService.setTitle("Resultado del intento - VocabMaster");
+  ) {}
+
+  ngOnInit(): any {
+    this.titleService.setTitle("Resultado del intento - VocabMaster");
 
     this.route.paramMap.subscribe((param) => {
       this.mazoId = param.get("mazoId");
@@ -49,7 +51,7 @@ export class ResultadoComponent {
     });
 
     if (this.intentoService.intento.length > 0) {
-      this.intento = intentoService.intento;
+      this.intento = this.intentoService.intento;
       this.arrayPalabrasAcertadas = this.intento.filter(
         (palabra) => palabra.acertada,
       );
@@ -78,7 +80,7 @@ export class ResultadoComponent {
           } else console.log(error);
         })
         .then((intentoGuardado) => {
-          this.fechaResponse = fechaService.parseFecha(
+          this.fechaResponse = this.fechaService.parseFecha(
             intentoGuardado["fecha"],
           );
           this.intentoGuardado = new Intento(intentoGuardado);

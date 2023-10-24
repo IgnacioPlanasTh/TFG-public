@@ -9,7 +9,7 @@
     "build": "ng build --output-path dist --watch",
     "buildProd": "ng build --configuration production",
     "dev": "ng build --output-path dist --watch & nodemon index.js",
-    "test": "ng test --watch=false",
+    "test": "ng test",
     "test:headless": "ng test --browsers=ChromeHeadless --watch=false",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md,html}\" \"!**/dist/**\""
   },

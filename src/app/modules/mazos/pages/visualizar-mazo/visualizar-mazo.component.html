@@ -17,7 +17,7 @@
         >
       </div>
 
-      <div class="dropdown show">
+      <div class="dropdown show" *ngIf="!isOwner">
         <a
           class="text-dark dropdown-toggle"
           href="#"
@@ -31,7 +31,27 @@
         </a>
         <div>
           <div
-            *ngIf="isOwner"
+            class="dropdown-menu dropdown-menu-end bg-rojo"
+            aria-labelledby="dropdownMenuLink"
+          >
+            <a class="dropdown-item" (click)="copiarMazo()">Copiar mazo</a>
+          </div>
+        </div>
+      </div>
+      <div class="dropdown show" *ngIf="isOwner">
+        <a
+          class="text-dark dropdown-toggle"
+          href="#"
+          role="button"
+          id="dropdownMenuLink"
+          data-bs-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </a>
+        <div>
+          <div
             class="dropdown-menu dropdown-menu-end bg-rojo"
             aria-labelledby="dropdownMenuLink"
           >
@@ -51,13 +71,6 @@
               >Exportar a JSON</a
             >
             <a class="dropdown-item" (click)="borrarMazo()">Eliminar mazo</a>
-          </div>
-          <div
-            *ngIf="!isOwner"
-            class="dropdown-menu dropdown-menu-end bg-rojo"
-            aria-labelledby="dropdownMenuLink"
-          >
-            <a class="dropdown-item" (click)="copiarMazo()">Copiar mazo</a>
           </div>
         </div>
       </div>

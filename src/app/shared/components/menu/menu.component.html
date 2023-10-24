@@ -22,8 +22,8 @@
             <input
               type="text"
               class="border-0 form-control border-warning bg-amarillo"
-              placeholder="Buscar mazos o usuarios"
-              aria-label="Buscar mazos o usuarios"
+              placeholder="Buscar mazos"
+              aria-label="Buscar mazos"
               aria-describedby="menu-search-button"
               [(ngModel)]="inputBusqueda"
               [ngModelOptions]="{ standalone: true }"
@@ -43,7 +43,7 @@
 
     <ul *ngIf="!this.authService.isLogged" class="navbar-nav">
       <li class="nav-item">
-        <a routerLink="/login" class="nav-link">Login</a>
+        <a routerLink="/login" class="nav-link">Iniciar sesión</a>
       </li>
       <li class="nav-item">
         <a routerLink="/crear-cuenta" class="nav-link">Registrarse</a>

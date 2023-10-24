@@ -40,7 +40,6 @@ export class ParejasComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle("Modo de juego parejas - VocabMaster");
-
     this.route.paramMap.subscribe((param) => {
       this.mazoId = param.get("mazoId");
       this.mazoService

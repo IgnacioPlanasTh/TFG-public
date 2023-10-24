@@ -1,5 +1,5 @@
 <div [@fadeInOut]>
-  <div *ngIf="mazo !== null" class="m-3">
+  <div *ngIf="mazo !== null" class="m-md-3 m-1">
     <div class="container-fluid bg-amarillo p-2">
       <div id="title-row" class="row justify-content-center">
         <div *ngIf="practica !== null" id="bandera" class="col-auto">
@@ -14,14 +14,17 @@
         <div id="botones-title" *ngIf="practica !== null" class="col-auto">
           <div class="row">
             <div class="col-12 col-md-auto">
-              <button class="btn bg-verde w-100" (click)="volverAMazo()">
+              <button
+                class="btn btn-outline-danger w-100"
+                (click)="volverAMazo()"
+              >
                 Salir
               </button>
             </div>
             <div class="col-12 col-md-auto">
               <button
                 *ngIf="practica == false"
-                class="btn bg-verde mt-2 mt-md-0 ml-md-2 w-100"
+                class="btn btn-outline-success mt-2 mt-md-0 ml-md-2 w-100"
                 (click)="terminarIntento()"
               >
                 Terminar intento
@@ -50,13 +53,19 @@
       <ng-template #jugar>
         <br />
         <div *ngIf="!practica" class="row justify-content-center">
-          <div class="col-auto">
-            <button class="btn bg-verde" (click)="marcarComoAprendida()">
+          <div class="col-6 col-md-auto">
+            <button
+              class="btn bg-verde button-ok"
+              (click)="marcarComoAprendida()"
+            >
               Marcar como aprendida
             </button>
           </div>
-          <div class="col-auto">
-            <button class="btn bg-verde" (click)="marcarComoNoAprendida()">
+          <div class="col-6 col-md-auto">
+            <button
+              class="btn bg-verde button-not-ok"
+              (click)="marcarComoNoAprendida()"
+            >
               Marcar como no aprendida
             </button>
           </div>
@@ -100,25 +109,25 @@
         <br /><br /><br />
         <div class="row justify-content-around">
           <div class="col-12 mb-1 col-md-auto text-center">
-            <button class="btn bg-verde" (click)="alternarTraduccion()">
-              cambiar traduccion
+            <button
+              *ngIf="index > 0"
+              class="btn bg-verde w-100"
+              (click)="anteriorPalabra()"
+            >
+              <<<<<
             </button>
           </div>
           <div class="col-12 mb-1 col-md-auto text-center">
-            <button
-              *ngIf="index > 0"
-              class="btn bg-verde"
-              (click)="anteriorPalabra()"
-            >
-              anteriorPalabra
+            <button class="btn bg-verde w-100" (click)="alternarTraduccion()">
+              cambiar traduccion
             </button>
           </div>
           <div
             class="col-12 mb-1 col-md-auto text-center"
             *ngIf="index < mazo.palabras.length - 1"
           >
-            <button class="btn bg-verde" (click)="siguientePalabra()">
-              Siguiente Palabra
+            <button class="btn bg-verde w-100" (click)="siguientePalabra()">
+              >>>>>
             </button>
           </div>
         </div>
